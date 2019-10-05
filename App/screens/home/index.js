@@ -7,10 +7,10 @@ class HomeScreen extends React.Component {
     return {
       title: params ? params.title : 'Home',
       /* These values are used instead of the shared configuration! */
-      headerStyle: {
-        backgroundColor: navigationOptions.headerTintColor,
-      },
-      headerTintColor: navigationOptions.headerStyle.backgroundColor,
+      //   headerStyle: {
+      //     backgroundColor: navigationOptions.headerTintColor || 'white',
+      //   },
+      //   headerTintColor: navigationOptions.headerStyle.backgroundColor || 'gray',
     };
   };
   render() {

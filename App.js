@@ -16,10 +16,10 @@ import {
   StatusBar,
   Button,
 } from 'react-native';
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-// import {createBottomTabNavigator} from 'react-navigation-tabs';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
 
 import Routes from './App/routes';
 
@@ -56,7 +56,31 @@ const MainNavigator = createStackNavigator(Routes, {
 });
 
 /* TAB NAVIGATOR*/
-// const TabNavigator = createBottomTabNavigator(Routes);
+
+const TabNavigator = createBottomTabNavigator(Routes, {
+  defaultNavigationOptions: ({navigation}) => ({
+    tabBarIcon: ({focused, horizontal, tintColor}) => {
+      const {routeName} = navigation.state;
+      let IconComponent = Ionicons;
+      let iconName;
+      if (routeName === 'Home') {
+        iconName = `ios-add-circle${focused ? '' : '-outline'}`;
+        // Sometimes we want to add badges to some icons.
+        // You can check the implementation below.
+        // IconComponent = HomeIconWithBadge;
+      } else if (routeName === 'Settings') {
+        iconName = `ios-options`;
+      }
+
+      // You can return any component that you like here!
+      return <IconComponent name={iconName} size={25} color={tintColor} />;
+    },
+  }),
+  tabBarOptions: {
+    activeTintColor: 'tomato',
+    inactiveTintColor: 'gray',
+  },
+});
 /* ROOT NAVIGATOR*/
 const RootNavigator = createStackNavigator(
   {
@@ -73,6 +97,7 @@ const RootNavigator = createStackNavigator(
   },
 );
 
-const App = createAppContainer(RootNavigator);
+// const App = createAppContainer(RootNavigator);
+const App = createAppContainer(TabNavigator);
 
 export default App;
